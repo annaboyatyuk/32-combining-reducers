@@ -1,7 +1,10 @@
 import React from 'react';
-import CategoryForm from '../category-form/categoryForm';
 import { connect } from 'react-redux';
 
+import {expenseCreate} from '../../action/expenseActions'
+
+import CategoryForm from '../category-form/categoryForm';
+import ExpenseForm from '../expense-form/expenseForm';
 
 
 class CategoryItem extends React.Component {
@@ -21,22 +24,26 @@ class CategoryItem extends React.Component {
     this.props.onComplete(category);
   }
 
+
   render() {
 
       return (
         <React.Fragment>
 
           <ul>
-            {this.props.category.map(item => (
-              <li id={item.id} key={item.id}>
-                <h2>{item.name}</h2>
+            {this.props.category.map(categoryItem => (
+              <li id={categoryItem.id} key={categoryItem.id}>
 
-                <p onDoubleClick={() => this.handleDouble(item.id)} >${item.budget}</p>
+                <h2>{categoryItem.name}</h2>
 
-                <button onClick={() => this.props.destroy(item)}>X</button>
+                <p onDoubleClick={() => this.handleDouble(categoryItem.id)} >${categoryItem.budget}</p>
 
-                {this.state.id === item.id ? <CategoryForm  buttonText='UPDATE' onComplete={this.updateCategory} item={item}/> : null}
+                <button onClick={() => this.props.destroy(categoryItem)}>X</button>
+
+                {this.state.id === categoryItem.id ? <CategoryForm  buttonText='UPDATE' onComplete={this.updateCategory} categoryItem={categoryItem}/> : null}
                 
+                <ExpenseForm onComplete={this.props.expenseCreate} categoryItemID={categoryItem.id} buttonText='SUBMIT'/>
+
               </li>
             ))}
           </ul>
@@ -49,11 +56,14 @@ class CategoryItem extends React.Component {
 
 
 const mapStateToProps = state => ({
-  category: state,
+  category: state.categoryState,
 });
 
+const mapDispatchToProps = dispatch => ({
+  expenseCreate: expense => dispatch(expenseCreate(expense))
+})
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(CategoryItem);
-
-

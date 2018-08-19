@@ -6,23 +6,23 @@ class CategoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.item && this.props.item.name || '',
-      budget: this.props.item && this.props.item.budget || '',
+      name: this.props.categoryItem && this.props.categoryItem.name || '',
+      budget: this.props.categoryItem && this.props.categoryItem.budget || '',
     }
   }
 
-  handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
+  handleChange = (event) => {
+    this.setState({[event.target.name]: event.target.value});
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = (event) => {
+    event.preventDefault();
 
-    if(this.props.item) {
+    if(this.props.categoryItem) {
       this.props.onComplete( {
         ...this.state,
-        id: this.props.item.id,
-        timestamp: this.props.item.timestamp,
+        id: this.props.categoryItem.id,
+        timestamp: this.props.categoryItem.timestamp,
         editing: false
       })
     }
@@ -36,6 +36,8 @@ class CategoryForm extends React.Component {
   render() {
 
     return (
+      <React.Fragment>
+
       <form onSubmit={this.handleSubmit} >
         
         <label >NAME</label>
@@ -46,9 +48,10 @@ class CategoryForm extends React.Component {
 
         <input type="number" name='budget' onChange={this.handleChange} value={this.state.budget}/>
 
-        <input id='submitButton' type="submit"  value={this.props.buttonText}/>
+        <input className='submitButton' type="submit"  value={this.props.buttonText}/>
 
       </form>
+      </React.Fragment>
     );
   }
 }
