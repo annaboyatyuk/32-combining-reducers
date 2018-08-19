@@ -28,6 +28,6 @@ li {
   margin: 5px;
 }
 
-#submitButton {
+.submitButton {
   width: 80px;
 }

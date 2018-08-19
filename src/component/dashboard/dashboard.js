@@ -1,17 +1,22 @@
 import React, {Component, Fragment} from 'react';
+import { connect } from 'react-redux';
 import CategoryForm from '../category-form/categoryForm';
 import CategoryItem from '../category-item/categoryItem';
-import { connect } from 'react-redux';
 
 import './dashboard.css';
 
 import {categoryCreate, categoryUpdate, categoryDestroy, categoryReset} from '../../action/categoryActions';
+
 
 class Dashboard extends Component {
 
   render() {
     return (
       <Fragment>
+
+        <h3>BUDGET</h3>
+        <p>enter a category name and budget</p>
+
 
         <CategoryForm onComplete={this.props.categoryCreate} buttonText='SUBMIT'/>
 
@@ -23,7 +28,8 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  state,
+  category: state.categoryState,
+  expense: state.expenseState,
 });
 
 const mapDispatchToProps = dispatch => ({
