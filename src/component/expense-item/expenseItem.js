@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ExpenseForm from '../expense-form/expenseForm';
 import {expenseUpdate} from '../../action/expenseActions';
+import categoryItem from '../category-item/categoryItem';
 
 
 class ExpenseItem extends React.Component {
@@ -19,7 +20,7 @@ class ExpenseItem extends React.Component {
     this.setState({
       editing: false
     })
-    this.props.onComplete(expense);
+    this.props.expenseUpdate(expense);
   }
 
 
@@ -34,6 +35,8 @@ class ExpenseItem extends React.Component {
               <h4>{expenseItem.name}</h4>
 
               <p onDoubleClick={() => this.handleDouble(expenseItem.id)}>${expenseItem.price}</p>
+
+              <button onClick={() => this.props.destroy(expenseItem)}>X</button>
 
               {this.state.id === expenseItem.id ? <ExpenseForm buttonText='UPDATE' onComplete={this.updateExpense} expenseItem={expenseItem}/> : null}
 

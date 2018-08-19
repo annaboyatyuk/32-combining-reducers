@@ -26,6 +26,7 @@ export default class ExpenseForm extends React.Component {
         id: this.props.expenseItem.id,
         timestamp: this.props.expenseItem.timestamp,
         editing: false,
+        categoryID: this.props.expenseItem.categoryID,
       })
     }
     else {
@@ -52,7 +53,7 @@ export default class ExpenseForm extends React.Component {
         <input className='submitButton' type="submit" value={this.props.buttonText}/>
       </form>
 
-      <ExpenseItem categoryItemID={this.props.categoryItemID} onComplete={this.props.onComplete}/>
+      <ExpenseItem categoryItemID={this.props.categoryItemID} destroy={this.props.destroy}/>
 
       </React.Fragment>
     );
